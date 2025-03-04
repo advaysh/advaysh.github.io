@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Course Selection Worksheet - MTHS Class of 2028</title>
+        <script src="app.js"></script><!-- This needs to be first to define vars.-->
+        <script>
+            window.onload = async (event) => {
+                const courseAllocationString =
+                    window.localStorage.getItem(courseAllocationKey);
+                if (courseAllocationString === null) {
+                    courseAllocation = {};
+                } else {
+                    courseAllocation = JSON.parse(courseAllocationString);
+                }
+                const courses = await (await fetch("courses.json")).json();
+                updateScreen(courses);
+            };
+        </script>
+        <style>
+            table, th, td {
+                border: solid black .5px;
+            }
+            .courseCheckboxTable {
+                border: 0px;
+            }
+            @media print {
+              .noPrint {
+                  display:none;
+              }
+            }
+            @media screen {
+               .onlyPrint {
+                   display: none;
+               }
+            }
+        </style>
+    </head>
+    <body>
+        <label for="student-name">Student Name:</label>
+        <input id="student-name"></input>
+        <label for="plan-name">Plan Name:</label>
+        <input id="plan-name"></input>
+        <button id="clear-storage" onClick="window.localStorage.clear()">
+            Clear saved course allocations
+        </button>
+        <!-- cellspacing, cellpadding helps merge borders -->
+        <table cellspacing="0" cellpadding="0">
+          <thead>
+            <tr>
+              <th>Subject Area</th>
+              <th>Minimum Credits Needed</th>
+              <th>Grade 9</th>
+              <th>Grade 10</th>
+              <th>Grade 11</th>
+              <th>Grade 12</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>English/Language Arts</td>
+              <td id="ela-credit">20</td>
+              <td id="ela-9"></td>
+              <td id="ela-10"></td>
+              <td id="ela-11"></td>
+              <td id="ela-12"></td>
+            </tr>
+            <tr>
+              <td>Social Studies</td>
+              <td id="ss-credit">15</td>
+              <td id="ss-9"></td>
+              <td id="ss-10"></td>
+              <td id="ss-11"></td>
+              <td id="ss-12"></td>
+            </tr>
+            <tr>
+              <td>Science</td>
+              <td id="science-credit">15</td>
+              <td id="science-9"></td>
+              <td id="science-10"></td>
+              <td id="science-11"></td>
+              <td id="science-12"></td>
+            </tr>
+            <tr>
+              <td>Mathematics</td>
+              <td id="math-credit">15</td>
+              <td id="math-9"></td>
+              <td id="math-10"></td>
+              <td id="math-11"></td>
+              <td id="math-12"></td>
+            </tr>
+            <tr>
+              <td>World Language (2 years of the same language)</td>
+              <td id="wl-credit">10</td>
+              <td id="wl-9"></td>
+              <td id="wl-10"></td>
+              <td id="wl-11"></td>
+              <td id="wl-12"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td rowspan="2">
+                  Physical Education
+                  <br/>Health &amp; Safety
+              </td>
+              <td id="pe-credit">15</td>
+              <td id="pe-9"></td>
+              <td id="pe-10"></td>
+              <td id="pe-11"></td>
+              <td id="pe-12"></td>
+            </tr>
+            <tr>
+              <td id="health-credit">5</td>
+              <td id="health-9"></td>
+              <td id="health-10"></td>
+              <td id="health-11"></td>
+              <td id="health-12"></td>
+            </tr>
+            <tr>
+              <td>Visual &amp; Performing Arts (VPA)</td>
+              <td id="vpa-credit">5</td>
+              <td id="vpa-9"></td>
+              <td id="vpa-10"></td>
+              <td id="vpa-11"></td>
+              <td id="vpa-12"></td>
+            </tr>
+            <tr>
+              <td>21st Century Life &amp; Careers/Career-Technical Education (TCLC)</td>
+              <td id="tclc-credit">5</td>
+              <td id="tclc-9"></td>
+              <td id="tclc-10"></td>
+              <td id="tclc-11"></td>
+              <td id="tclc-12"></td>
+            </tr>
+            <tr>
+              <td>Financial Literacy (PFL)</td>
+              <td id="pfl-credit">2.5</td>
+              <td id="pfl-9"></td>
+              <td id="pfl-10"></td>
+              <td id="pfl-11"></td>
+              <td id="pfl-12"></td>
+            </tr>
+            <tr>
+              <td>Electives</td>
+              <td id=electives-credit></td>
+              <td id="electives-9"></td>
+              <td id="electives-10"></td>
+              <td id="electives-11"></td>
+              <td id="electives-12"></td>
+            </tr>
+            <tr>
+              <td><strong>Total Credits Needed to Graduate</strong></td>
+              <td><strong>140</strong></td>
+              <td><strong>30 to enter 10th grade</strong></td>
+              <td><strong>65 to enter 11th grade</strong></td>
+              <td><strong>100 to enter 12th grade</strong></td>
+              <td><strong>140 to graduate</strong></td>
+            </tr>
+            <tr>
+              <td>Total Scheduled</td>
+              <td></td>
+              <td id="total-9"></td>
+              <td id="total-10"></td>
+              <td id="total-11"></td>
+              <td id="total-12"></td>
+            </tr>
+            <tr>
+              <td>Total Earned</td>
+              <td></td>
+              <td id="te-9"></td>
+              <td id="te-10"></td>
+              <td id="te-11"></td>
+              <td id="te-12"></td>
+            </tr>
+          </tbody>
+        </table>
+    </body>
+</html>
